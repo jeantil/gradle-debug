@@ -13,7 +13,7 @@ import java.util.*
  * - by providing those attributes in several steps if needed
  * - and using addition ad-hoc logic if needed (see [withRandomDescription])
  */
-data class TaskBuilder(
+internal data class TaskBuilder(
         var id: TaskId = TaskId.generate(),
         var creationDate: OffsetDateTime = OffsetDateTime.now().withNano(0),
         var ownerId: TaskOwnerId = TaskOwnerId("some-owner-id"),
