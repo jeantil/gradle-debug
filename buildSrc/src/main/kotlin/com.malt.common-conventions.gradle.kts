@@ -4,7 +4,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
 plugins {
     `java-library`
-    id("io.spring.dependency-management")
+//    id("io.spring.dependency-management")
     kotlin("jvm")
     kotlin("plugin.spring")
 }
@@ -53,23 +53,27 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-extra["springBootVersion"] = "2.6.9"
-extra["testcontainersVersion"] = "1.17.1"
-
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:${property("springBootVersion")}") {
-            bomProperty("kotlin.version", "1.6.20")
-            bomProperty("kotlinVersion", "1.6.20")
-        }
-        mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
-    }
-}
+//extra["springBootVersion"] = "2.6.9"
+//extra["testcontainersVersion"] = "1.17.1"
+//
+//dependencyManagement {
+//    imports {
+//        mavenBom("org.springframework.boot:spring-boot-dependencies:${property("springBootVersion")}") {
+//            bomProperty("kotlin.version", "1.6.20")
+//            bomProperty("kotlinVersion", "1.6.20")
+//        }
+//        mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
+//    }
+//}
 
 dependencies {
+    implementation(enforcedPlatform(project(":platform")))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
     implementation(kotlin("stdlib-jdk7"))
     implementation(kotlin("stdlib-jdk8"))
+//    testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+//    testImplementation("org.assertj:assertj-core")
+//    testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
