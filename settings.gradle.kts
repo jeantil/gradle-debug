@@ -1,3 +1,12 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+        
+    }
+}
+
 rootProject.name = "malt"
 
 var excludeDirs = setOf(
@@ -28,3 +37,21 @@ fun includeAllModules(dir: File) {
 }
 
 includeAllModules(file("."))
+
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url = uri("https://repo.spring.io/libs-release")
+        }
+    }
+    versionCatalogs {
+        create("libs") {
+            from(files("platform/libs.versions.toml"))
+        }
+    }
+
+}
