@@ -1,10 +1,14 @@
 package com.malt.task
 
-class TaskMergeService(
-        private val taskRepository: TaskRepository
-) {
+interface TaskMergeService {
+    fun mergeTasks(taskToBeMergedIntoTheOtherOne: Task, taskToKeep: Task): Task
+}
 
-    fun mergeTasks(taskToBeMergedIntoTheOtherOne: Task, taskToKeep: Task): Task {
+internal class DefaultTaskMergeService(
+        private val taskRepository: TaskRepository,
+) : TaskMergeService {
+
+    override fun mergeTasks(taskToBeMergedIntoTheOtherOne: Task, taskToKeep: Task): Task {
         if (taskToBeMergedIntoTheOtherOne.id == taskToKeep.id) {
             throw TasksCanNotBeMergedException("Can't merge ${taskToBeMergedIntoTheOtherOne.id} into itself")
         }
@@ -27,4 +31,11 @@ class TaskMergeService(
 
         return mergedTask
     }
+}
+
+class TaskMergeServiceFactory() {
+    fun createTaskMergeService(taskRepository: TaskRepository): TaskMergeService {
+        return DefaultTaskMergeService(taskRepository)
+    }
+
 }

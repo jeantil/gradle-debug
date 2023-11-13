@@ -11,5 +11,7 @@ class Configuration {
     fun clock(): Clock = Clock.systemDefaultZone()
 
     @Bean
-    fun taskMergeService(taskRepository: TaskRepository) = TaskMergeService(taskRepository)
+    fun taskMergeService(taskRepository: TaskRepository) = {
+        TaskMergeServiceFactory().createTaskMergeService(taskRepository)
+    }
 }

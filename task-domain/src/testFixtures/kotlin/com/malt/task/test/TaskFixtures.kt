@@ -1,16 +1,14 @@
 package com.malt.task.test
 
-import com.malt.task.Task
-import com.malt.task.TaskId
-import com.malt.task.TaskMergeService
-import com.malt.task.TaskOwnerId
+import com.malt.task.*
+import com.malt.task.DefaultTaskMergeService
 import com.malt.test.time.SettableClock
 
 open class TaskFixtures {
 
     val clock by lazy { SettableClock() }
     val taskRepository by lazy { InMemoryTaskRepository() }
-    val taskMergeService by lazy { TaskMergeService(taskRepository) }
+    val taskMergeService: TaskMergeService by lazy { DefaultTaskMergeService(taskRepository) }
 
     fun givenAnExistingTask(
             id: TaskId = TaskId.generate(),
